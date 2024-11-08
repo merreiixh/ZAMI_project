@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Уход за растениями{% endblock %}
+
+
+{% block content %}
+<header class="back-button">
+    <div class="container">
+        <a href="{% url 'home_page' %}" class="back-button__link"><img src="{% static 'css/images/vector.svg' %}" alt="Vector icon" />
+        </a>
+    </div>
+</header>
+{% if user.is_authenticated %}
+<section class="flowers">
+    <div class="container">
+        <h2 class="title">Уход за растениями</h2>
+        <div class="flowers-list">
+            {% for guide in guides %}
+            <div class="flowers-card">
+                <h3 class="flowers-card__title">{{ guide.title }}</h3>
+                <h3 class="flowers-card__company">{{ guide.crеated_at|date:"d.m.Y" }}</h3>
+                <a href="{% url 'guide_detail_page' pk=guide.pk %}" class="dark-button">Читать</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы анонимный пользователь</h1>
+        <p class="dark-text">Чтобы работать с приложением, Вам нужно пройти регистрацию и авторизацию.</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Вход</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

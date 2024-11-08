@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+
+{% block content %}
+<section class="categories">
+    <div class="container">
+        <h2 class="title">Категории</h2>
+        <div class="categories-list">
+            <a href="{% url 'flowers_page' %}" class="category-item">Все</a>
+            {% for category in categories %}
+            <a href="{% url 'flowers_by_category_page' slug=category.slug %}" class="category-item">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="flowers">
+    <div class="container">
+        <h2 class="title">Последние поступление</h2>
+        <div class="flowers-list">
+            {% for flowers in flowers %}
+            <div class="flowers-card">
+                <h3 class="flowers-card__title">{{ flowers.title }}</h3>
+                <h3 class="flowers-card__company">{{ flowers.company }}</h3>
+                <h3 class="flowers-card__title">{{ flowers.price }}</h3>
+                <a href="{% url 'flowers_detail_page' pk=flowers.pk %}" class="dark-button">Обзор</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

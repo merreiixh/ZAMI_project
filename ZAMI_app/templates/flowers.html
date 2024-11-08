@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Последние обновление{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="flowers">
+    <div class="container">
+        <h2 class="title">Последние обновление</h2>
+        <div class="flowers-list">
+            {% for flowers in flowers %}
+            <div class="flowers-card">
+                <h3 class="flowers-card__title">{{ flowers.title }}</h3>
+                <h3 class="flowers-card__company">{{ flowers.company }}</h3>
+                <h3 class="flowers-card__title">{{ flowers.price }}</h3>
+                <a href="{% url 'flowers_detail_page' pk=flowers.pk %}" class="dark-button">Обзор</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы анонимный пользователь</h1>
+        <p class="dark-text">Чтобы работать с приложением, Вам нужно пройти регистрацию и авторизацию.</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Вход</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ flowers.title }}{% endblock %}
+
+
+{% block content %}
+<header class="back-button">
+    <div class="container">
+        <a href="{% url 'home_page' %}" class="back-button__link"><img src="{% static 'css/images/vector.svg' %}" alt="Vector icon" />
+        </a>
+    </div>
+</header>
+{% if user.is_authenticated %}
+<section class="flowers-detail">
+    <div class="container">
+        <h1 class="title">{{ flowers.title }}</h1>
+        <h2 class="title">{{ flowers.company }}</h2>
+        <h3 class="flowers-detail__data">Цена: <span>{{ flowers.price }}</span></h3>
+        <p class="flowers-detail__content"><strong>Описание: </strong>{{ flowers.description }}</p>
+        <img src="{{ flowers.image }}" class="flowers-detail__image" alt="{{ flowers.title }}"></a>
+        <div class="flowers-detail__contact-us">
+            <h3 class="flowers-detail__title">Контакты</h3>
+            <ul class="flowers-detail__address">
+                <li>Адрес: {{ flowers.address }}</li>
+                <li>Телефон: {{ flowers.phone }}</li>
+                <li>E-mail: {{ flowers.email }}</li>
+            </ul>
+        </div>
+        <p class="flowers-detail__content"><strong>Дата публикации: </strong>{{ flowers.created_ad|date:"d.m.Y" }}</p>
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы анонимный пользователь</h1>
+        <p class="dark-text">Чтобы работать с приложением, Вам нужно пройти регистрацию и авторизацию.</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Вход</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+
+{% block content %}
+<header class="back-button">
+    <div class="container">
+        <a href="{% url 'home_page' %}" class="back-button__link"><img src="{% static 'css/images/vector.svg' %}" alt="Vector icon" />
+        </a>
+    </div>
+</header>
+{% if user.is_authenticated %}
+<section class="categories">
+    <div class="container">
+        <h2 class="title">Категории</h2>
+        <div class="categories-list">
+            <a href="{% url 'flowers_page' %}" class="category-item">Все</a>
+            {% for category in categories %}
+            <a href="{% url 'flowers_by_category_page' slug=category.slug %}" class="category-item">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы анонимный пользователь</h1>
+        <p class="dark-text">Чтобы работать с приложением, Вам нужно пройти регистрацию и авторизацию.</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Вход</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

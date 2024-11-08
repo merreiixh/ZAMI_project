@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ guide.title }}{% endblock %}
+
+
+{% block content %}
+<header class="back-button">
+    <div class="container">
+        <a href="{% url 'guides_page' %}" class="back-button__link"><img src="{% static 'css/images/vector.svg' %}" alt="Vector icon" />
+        </a>
+    </div>
+</header>
+{% if user.is_authenticated %}
+<section class="flowers-detail">
+    <div class="container">
+        <h1 class="title">{{ guide.title }}</h1>
+        <p class="flowers-detail__content"><strong>Описание: </strong>{{ guide.descriptions }}</p>
+        <img src="{{ guide.image }}" class="guide-detail__image" alt="{{ guide.title }}"></a>
+        <p class="flowers-detail__content"><strong>Дата публикации: </strong>{{ guide.crеated_at|date:"d.m.Y" }}</p>
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы анонимный пользователь</h1>
+        <p class="dark-text">Чтобы работать с приложением, Вам нужно пройти регистрацию и авторизацию.</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Вход</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
