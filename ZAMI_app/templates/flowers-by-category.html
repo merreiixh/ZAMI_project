@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ category.name }}{% endblock %}
 
 
 {% block content %}
+<header class="back-button">
+    <div class="container">
+        <a href="{% url 'home_page' %}" class="back-button__link"><img src="{% static 'css/images/vector.svg' %}" alt="Vector icon" />
+        </a>
+    </div>
+</header>
 {% if user.is_authenticated %}
 <section class="flowers">
     <div class="container">
